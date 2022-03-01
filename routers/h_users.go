@@ -7,7 +7,7 @@ import (
 	"mywallet.com/db"
 )
 
-func CreateUser(w http.ResponseWriter, r *http.Request) {
+func CreateUserHandler(w http.ResponseWriter, r *http.Request) {
 	var user db.User
 	err := json.NewDecoder(r.Body).Decode(&user)
 	CheckError(err)
@@ -27,7 +27,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(&dtoResponse)
 }
 
-func ListUsersAndWallets(w http.ResponseWriter, r *http.Request) {
+func ListUsersAndWalletsHandler(w http.ResponseWriter, r *http.Request) {
 	users := db.ListUsersAndWallets()
 	json.NewEncoder(w).Encode(&users)
 }

@@ -18,11 +18,11 @@ func HttpRoutersAndListener() {
 	route := mux.NewRouter()
 	route.HandleFunc("/categories", GetCategoriesHandler).Methods("GET")
 
-	route.HandleFunc("/expenses", InsertAnExpense).Methods("POST")
-	route.HandleFunc("/expenses/all", ListAllExpenses).Methods("GET")
+	route.HandleFunc("/transactions", CreateTransactionHandler).Methods("POST")
+	route.HandleFunc("/transactions/all", ListAllTransactionsHandler).Methods("GET")
 
-	route.HandleFunc("/users", CreateUser).Methods("POST")
-	route.HandleFunc("/users/all", ListUsersAndWallets).Methods("GET")
+	route.HandleFunc("/users", CreateUserHandler).Methods("POST")
+	route.HandleFunc("/users/all", ListUsersAndWalletsHandler).Methods("GET")
 
 	route.HandleFunc("/seedDb", SeedDbHandler).Methods("GET")
 

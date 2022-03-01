@@ -1,6 +1,6 @@
 package db
 
-type Expense struct {
+type Transaction struct {
 	IdTransaction     string  `json:"idTransaction"`
 	Amount            float32 `json:"amount"`
 	Date              string  `json:"date"`
@@ -10,7 +10,7 @@ type Expense struct {
 	IdWallet          string  `json:"idWallet"`
 }
 
-func InsertExpense(expense Expense) string {
+func CreateTransaction(transaction Transaction) string {
 	idTransaction := GenerateUUID()
 	srt := `
 		INSERT INTO transactions
@@ -19,16 +19,19 @@ func InsertExpense(expense Expense) string {
 	`
 	_, err := GetDbInstance().Query(srt,
 		idTransaction,
-		expense.Amount,
-		expense.Date,
-		expense.IdTransactionType,
-		expense.IdCategory,
-		expense.IdPaymentType,
-		expense.IdWallet,
+		transaction.Amount,
+		transaction.Date,
+		transaction.IdTransactionType,
+		transaction.IdCategory,
+		transaction.IdPaymentType,
+		transaction.IdWallet,
 	)
 
 	CheckError(err)
 	return idTransaction
 }
 
-func ListAllExpensesByIdWallet(idWallet string) {}
+func ListAllTransactionsByIdWallet(idWallet string) []Transaction {
+	transactionList := []Transaction{}
+	return transactionList
+}

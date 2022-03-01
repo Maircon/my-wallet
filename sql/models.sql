@@ -51,7 +51,7 @@ CREATE TABLE transactions (
 )
 
 CREATE TABLE amount_history (
-  id_amount_history SMALLSERIAL NOT NULL,
+  id_amount_history SERIAL PRIMARY KEY,
   id_transaction UUID NOT NULL,
   last_amount NUMERIC(12,2),
   next_amount NUMERIC(12,2),
