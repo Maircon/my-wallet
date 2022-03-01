@@ -13,7 +13,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	CheckError(err)
 
 	idUser := db.CreateUser(user)
-	idWallet := db.CreateWalletTo(idUser)
+	walletName := user.FullName + "-Wallet"
+	idWallet := db.CreateWalletTo(idUser, walletName)
 
 	dtoResponse := struct {
 		IdUser   string `json:"idUser"`

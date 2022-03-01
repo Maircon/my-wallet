@@ -23,13 +23,13 @@ func UpdateWalletBalance(balance float32, idWallet string) {
 	CheckError(err)
 }
 
-func CreateWalletTo(idUser string) string {
+func CreateWalletTo(idUser string, walletName string) string {
 	idWallet := GenerateUUID()
 	_, err := GetDbInstance().Exec(`
 		INSERT INTO wallets
-			(id_wallet, id_user, balance)
-		VALUES ($1,$2,$3)
-	`, idWallet, idUser, DEFAULT_BALANCE)
+			(id_wallet, id_user, name, balance)
+		VALUES ($1,$2,$3, $4)
+	`, idWallet, idUser, walletName, DEFAULT_BALANCE)
 
 	CheckError(err)
 
