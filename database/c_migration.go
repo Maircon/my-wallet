@@ -74,6 +74,7 @@ func Migration() {
 			id_category SMALLSERIAL,
 			id_payment_type SMALLSERIAL,
 			id_wallet UUID,
+			"description" VARCHAR,
 			PRIMARY KEY (id_transaction),
 			CONSTRAINT fk_id_transaction_type FOREIGN KEY(id_transaction_type) REFERENCES transaction_types(id_transaction_type),
 			CONSTRAINT fk_id_category FOREIGN KEY(id_category) REFERENCES categories(id_category),

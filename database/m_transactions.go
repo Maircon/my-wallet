@@ -8,6 +8,7 @@ type Transaction struct {
 	IdCategory        uint8   `json:"idCategory"`
 	IdPaymentType     uint8   `json:"idPaymentType"`
 	IdWallet          string  `json:"idWallet"`
+	Description       string  `json:"description"`
 }
 
 type TransactionNamed struct {
@@ -24,8 +25,8 @@ func CreateTransaction(transaction Transaction) string {
 	idTransaction := GenerateUUID()
 	srt := `
 		INSERT INTO transactions
-			(id_transaction, amount, date, id_transaction_type, id_category, id_payment_type, id_wallet)
-		VALUES ($1,$2,$3,$4,$5,$6,$7)
+			(id_transaction, amount, date, id_transaction_type, id_category, id_payment_type, id_wallet, description)
+		VALUES ($1,$2,$3,$4,$5,$6,$7, $8)
 	`
 	_, err := GetDbInstance().Query(srt,
 		idTransaction,
@@ -35,6 +36,7 @@ func CreateTransaction(transaction Transaction) string {
 		transaction.IdCategory,
 		transaction.IdPaymentType,
 		transaction.IdWallet,
+		transaction.Description,
 	)
 
 	CheckError(err)

@@ -16,25 +16,25 @@ func ListAllTransactionsHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateTransactionHandler(w http.ResponseWriter, r *http.Request) {
-	var expense db.Transaction
+	var transaction db.Transaction
 	var newBalance float32
 
-	err := json.NewDecoder(r.Body).Decode(&expense)
+	err := json.NewDecoder(r.Body).Decode(&transaction)
 	CheckError(err)
 
-	idTransaction := db.CreateTransaction(expense)
+	idTransaction := db.CreateTransaction(transaction)
 
-	TotalBalance := db.GetTotalBalanceByIdUser(expense.IdWallet)
+	TotalBalance := db.GetTotalBalanceByIdUser(transaction.IdWallet)
 
-	if expense.IdTransactionType == EARN_TRANSACTION_TYPE {
-		newBalance = TotalBalance + expense.Amount
+	if transaction.IdTransactionType == EARN_TRANSACTION_TYPE {
+		newBalance = TotalBalance + transaction.Amount
 	} else {
-		newBalance = TotalBalance - expense.Amount
+		newBalance = TotalBalance - transaction.Amount
 	}
 
 	db.UpdateWalletBalance(
 		newBalance,
-		expense.IdWallet,
+		transaction.IdWallet,
 	)
 
 	db.InsertAmountHistory(
