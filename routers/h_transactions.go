@@ -10,8 +10,7 @@ import (
 const EARN_TRANSACTION_TYPE uint8 = 2
 
 func ListAllTransactionsHandler(w http.ResponseWriter, r *http.Request) {
-	var idWallet string
-	json.NewDecoder(r.Body).Decode(&idWallet)
+	idWallet := r.URL.Query().Get("idWallet")
 	transactionsList := db.ListAllTransactionsByIdWallet(idWallet)
 	json.NewEncoder(w).Encode(transactionsList)
 }

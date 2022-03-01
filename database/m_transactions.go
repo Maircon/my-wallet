@@ -10,6 +10,16 @@ type Transaction struct {
 	IdWallet          string  `json:"idWallet"`
 }
 
+type TransactionNamed struct {
+	IdTransaction       string  `json:"idTransaction"`
+	Amount              float32 `json:"amount"`
+	Date                string  `json:"date"`
+	TransactionTypeName string  `json:"TransactionTypeName"`
+	CategoryName        string  `json:"CategoryName"`
+	PaymentTypeName     string  `json:"PaymentTypeName"`
+	IdWallet            string  `json:"idWallet"`
+}
+
 func CreateTransaction(transaction Transaction) string {
 	idTransaction := GenerateUUID()
 	srt := `
@@ -31,7 +41,42 @@ func CreateTransaction(transaction Transaction) string {
 	return idTransaction
 }
 
-func ListAllTransactionsByIdWallet(idWallet string) []Transaction {
-	transactionList := []Transaction{}
+func ListAllTransactionsByIdWallet(idWallet string) []TransactionNamed {
+	transactionList := []TransactionNamed{}
+	rows, err := GetDbInstance().Query(`
+		SELECT
+			t.id_transaction,
+			t.amount,
+			t."date",
+			tt."name" "transaction_type",
+			c."name" "category",
+			pt."name" "payment_type",
+			t.id_wallet
+		FROM transactions t
+		JOIN
+			transaction_types tt ON tt.id_transaction_type = t.id_transaction_type
+		JOIN
+			categories c ON c.id_category = t.id_category
+		JOIN
+			payment_types pt ON pt.id_payment_type = t.id_payment_type
+		WHERE t.id_wallet = $1
+	`, idWallet)
+
+	CheckError(err)
+
+	for rows.Next() {
+		transaction := TransactionNamed{}
+		rows.Scan(
+			&transaction.IdTransaction,
+			&transaction.Amount,
+			&transaction.Date,
+			&transaction.TransactionTypeName,
+			&transaction.CategoryName,
+			&transaction.PaymentTypeName,
+			&transaction.IdWallet,
+		)
+		transactionList = append(transactionList, transaction)
+	}
+
 	return transactionList
 }
