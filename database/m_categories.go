@@ -8,16 +8,18 @@ type Categories struct {
 func GetCategories() []Categories {
 	rows, err := GetDbInstance().Query("SELECT * FROM categories")
 	CheckError(err)
-	var res []Categories
+	var categoriesList []Categories
+
 	for rows.Next() {
 		var category Categories
-		err = rows.Scan(&category.IdCategory, &category.Name)
+		err = rows.Scan(
+			&category.IdCategory,
+			&category.Name,
+		)
+
 		CheckError(err)
-		// if category.IdCategory == 4 {
-		// 	teste := res
-		// 	teste[1].IdCategory = 55
-		// }
-		res = append(res, category)
+
+		categoriesList = append(categoriesList, category)
 	}
-	return res
+	return categoriesList
 }

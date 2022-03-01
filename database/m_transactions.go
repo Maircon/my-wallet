@@ -66,7 +66,7 @@ func ListAllTransactionsByIdWallet(idWallet string) []TransactionNamed {
 
 	for rows.Next() {
 		transaction := TransactionNamed{}
-		rows.Scan(
+		err := rows.Scan(
 			&transaction.IdTransaction,
 			&transaction.Amount,
 			&transaction.Date,
@@ -75,6 +75,9 @@ func ListAllTransactionsByIdWallet(idWallet string) []TransactionNamed {
 			&transaction.PaymentTypeName,
 			&transaction.IdWallet,
 		)
+
+		CheckError(err)
+
 		transactionList = append(transactionList, transaction)
 	}
 
