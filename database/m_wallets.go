@@ -14,7 +14,7 @@ func GetTotalBalanceByIdUser(idWallet string) float32 {
 }
 
 func UpdateWalletBalance(balance float32, idWallet string) {
-	_, err := GetDbInstance().Query(`
+	_, err := GetDbInstance().Exec(`
 		UPDATE wallets
 		SET balance = $1
 		WHERE id_wallet = $2

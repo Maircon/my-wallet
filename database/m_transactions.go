@@ -28,7 +28,7 @@ func CreateTransaction(transaction Transaction) string {
 			(id_transaction, amount, date, id_transaction_type, id_category, id_payment_type, id_wallet, description)
 		VALUES ($1,$2,$3,$4,$5,$6,$7, $8)
 	`
-	_, err := GetDbInstance().Query(srt,
+	_, err := GetDbInstance().Exec(srt,
 		idTransaction,
 		transaction.Amount,
 		transaction.Date,

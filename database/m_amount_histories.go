@@ -6,7 +6,7 @@ func InsertAmountHistory(idTransaction string, lastAmount float32, nextAmount fl
 			(id_transaction, last_amount, next_amount)
 		VALUES ($1,$2,$3)
 	`
-	_, err := GetDbInstance().Query(srt,
+	_, err := GetDbInstance().Exec(srt,
 		idTransaction,
 		lastAmount,
 		nextAmount,
