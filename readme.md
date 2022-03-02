@@ -27,3 +27,4 @@
 - Create a middleware and pass who is requesting the action
 - Update transactions and total balance
 - Validate requests
+- Parcelar compras e emprestimos

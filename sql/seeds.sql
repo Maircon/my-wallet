@@ -24,7 +24,7 @@ INSERT INTO public.categories ("name")
 INSERT INTO public.categories ("name")
 	VALUES ('Medical & Healthcare');
 INSERT INTO public.categories ("name")
-	VALUES ('Clothes');
+	VALUES ('Shopping');
 INSERT INTO public.categories ("name")
 	VALUES ('Bars & Restaurants');
 INSERT INTO public.categories ("name")
@@ -43,3 +43,5 @@ INSERT INTO public.categories ("name")
 	VALUES ('Family');
 INSERT INTO public.categories ("name")
 	VALUES ('Personal Care');
+INSERT INTO public.categories ("name")
+	VALUES ('Animal Meal');
